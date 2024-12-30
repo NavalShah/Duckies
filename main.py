@@ -1,13 +1,24 @@
-import requests
-from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 
-'''Home screen'''
-url = "https://parents.sbschools.org/genesis/sis/view?gohome=true"
+import json
+import time
 
-'''url for password entry?'''
-url2 = "https://parents.sbschools.org/genesis/sis/j_security_check?parents=Y"
+login_info = json.load(open('login_info.json','r'))
 
-studentID = ""
+service = Service(executable_path='C:\Denis\Programs\Duckies\chromedriver-win64\chromedriver.exe') 
+driver = webdriver.Chrome(service=service)
 
-r = requests.post(url2,data={'username': 'value', 'password': 'value'})
-print(r)
+driver.get('https://parents.sbschools.org/genesis/sis/view?gohome=true')
+
+username_input = driver.find_element(By.ID, 'j_username')
+username_input.send_keys(login_info['username'])
+
+password_input = driver.find_element(By.ID, 'j_password')
+password_input.send_keys(login_info['password'] + Keys.ENTER)
+
+
+time.sleep(10)
+driver.quit()
