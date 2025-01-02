@@ -8,7 +8,7 @@ import time
 
 login_info = json.load(open('login_info.json','r'))
 
-service = Service(executable_path='C:\Denis\Programs\Duckies\chromedriver-win64\chromedriver.exe') 
+service = Service(executable_path='chromedriver-win64/chromedriver.exe') 
 driver = webdriver.Chrome(service=service)
 
 driver.get('https://parents.sbschools.org/genesis/sis/view?gohome=true')
